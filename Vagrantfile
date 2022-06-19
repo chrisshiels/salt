@@ -15,13 +15,15 @@ apt-get -y upgrade
 # Salt Repository.
 apt-get install -y gnupg
 curl https://repo.saltproject.io/py3/debian/10/amd64/latest/salt-archive-keyring.gpg | apt-key add -
+echo 'deb [arch=amd64] https://repo.saltproject.io/py3/debian/10/amd64/latest buster main' | tee /etc/apt/sources.list.d/salt.list
+apt-get update
 
 # Salt name.
 echo '10.100.0.11 salt' | tee /etc/hosts
 
 # Salt Master.
 [ `hostname` = 'vm1' ] && apt-get install -y salt-master
-        
+
 # Salt Minion.
 apt-get install -y salt-minion
 tee /etc/salt/grains <<eof2
